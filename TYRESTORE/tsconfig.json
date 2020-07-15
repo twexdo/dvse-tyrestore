@@ -1,12 +1,10 @@
 {
     "compilerOptions": {
-        "module":"CommonJS",
+        "module": "CommonJS",
         "jsx": "react",
         "sourceMap": true
-    
-    }
-    ,
-    "exclude":[
+    },
+    "exclude": [
         "node_modules",
         "dist"
     ]

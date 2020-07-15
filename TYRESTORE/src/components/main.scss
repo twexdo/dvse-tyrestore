@@ -112,14 +112,13 @@ h4 {
     span.vehicle-icon{
         background: url("../img/car.svg") no-repeat center;
         background-size: contain;
-        width: 32px;
-        height: 42px;
+        width: 22px;
 
     }
     span.tire-icon{
         background: url("../img/wheel.svg") no-repeat center;
         background-size: contain;
-        width: 22px;
+        width: 18px;
     }
 }
 
@@ -151,6 +150,6 @@ h4 {
     }
 
 }
-#tires{
+#tire{
     margin-left: 15px;
 }

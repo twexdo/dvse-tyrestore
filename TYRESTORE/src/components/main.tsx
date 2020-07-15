@@ -46,8 +46,8 @@ class Main extends React.Component {
                                     </div>
                                     </div>
                                 </section>
-                                <section className="tires">
-                                    <h4 className="tires-title"><span className="tire-icon"></span>Tires</h4>
+                                <section className="tire">
+                                    <h4 className="tire-title"><span className="tire-icon"></span>Vehicles</h4>
                                     <div className="table" id="tire">
                                     <div className="row">
                                         <div>Manufacturer</div>
@@ -72,6 +72,7 @@ class Main extends React.Component {
                                     </div>
                                     </div>
                                 </section>
+                               
                             </main>
                         </div>
                     </div>

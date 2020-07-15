@@ -14,6 +14,7 @@ const config={
                 test:/\.(ts|tsx)$/,
                 use:"ts-loader",
                 exclude:/node_module/
+                
             }
         ,
             {
@@ -25,7 +26,10 @@ const config={
 
                     
                 ]
-            }
+            },
+            { test: /\.(png|jpg|jpeg|svg)$/, 
+            use:"file-loader" }
+            
         ]
 
     },

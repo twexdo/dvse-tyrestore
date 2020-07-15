@@ -4,7 +4,7 @@ import { Router } from "react-router"
 import { createBrowserHistory } from "history"
 import "./styles.scss"
 
-import App from "./components/app"
+import Main from "./components/main"
 import { createStore } from "redux"
 import { reducer } from "../redux/store"
 import { Provider } from "react-redux";
@@ -16,7 +16,7 @@ import { Provider } from "react-redux";
 ReactDOM.render(
     <Provider store={store}>
         <Router history={createBrowserHistory()}>
-            <App />
+            <Main />
         </Router>
     </Provider>
     , document.getElementById("app"));

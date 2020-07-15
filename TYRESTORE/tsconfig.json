@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+        "module":"CommonJS",
+        "jsx": "react",
+        "sourceMap": true
+    
+    }
+    ,
+    "exclude":[
+        "node_modules",
+        "dist"
+    ]
+}

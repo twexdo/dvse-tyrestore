@@ -41,49 +41,7 @@ namespace TireStoreAPI.Controllers
             return tyres;
         }
 
-        // PUT: api/Tyres/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutTyres(int id, Tyres tyres)
-        {
-            if (id != tyres.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(tyres).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!TyresExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
-        // POST: api/Tyres
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPost]
-        public async Task<ActionResult<Tyres>> PostTyres(Tyres tyres)
-        {
-            _context.Tyres.Add(tyres);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetTyres", new { id = tyres.Id }, tyres);
-        }
+    
 
         // DELETE: api/Tyres/5
         [HttpPost,Route("DeleteTyresById")]

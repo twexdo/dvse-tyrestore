@@ -19,6 +19,11 @@ $radius:5px;
 
 $shadow:rgba(0,0,0,0.7) 0px 5px 15px 0px;
 
+@import "./components/shared/button/";
+@import "./components/shared/text/";
+@import "./components/shared/icon/";
+@import "./components/header/";
+@import "./components/shared/table/";
 html {
     width: 100%;
     height: 100%;
@@ -31,9 +36,15 @@ body {
     padding: 0;
     width: 100%;
     height: 100%;
+    background-image: url("/images/bg.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
 
     #app {
         width: 100%;
         height: 100%;
+        background-color: rgba($color: #ffffff, $alpha: 0.7);
     }
 }
+
+

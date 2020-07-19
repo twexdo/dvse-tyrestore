@@ -2,8 +2,8 @@ import * as React from "react"
 import { Text, Button } from "../../shared/index"
 
 type Props = {
-    totalPrice?: number
-    tax?:number
+    totalPrice: number
+    tax:number
 }
 
 class Summary extends React.Component<Props>{

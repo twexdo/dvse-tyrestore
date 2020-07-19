@@ -1,5 +1,6 @@
 import * as  React from "react"
 import { Sizes, Skins } from "../../../data/models"
+import { Icon } from ".."
 
 type Props = {
     className?: string
@@ -8,16 +9,21 @@ type Props = {
     icon?: string
     size?: Sizes
     skin?: Skins
+    hoverSkin?: Skins
+    longButton?:boolean
     onClick?(): void
 }
 
 class Button extends React.Component<Props>{
     render() {
-        const { children, className, disabled, isActive, icon, size, skin, onClick } = this.props
+        const { children, className, disabled, isActive, icon, size, skin, onClick,hoverSkin,longButton } = this.props
 
         let customClassName = "button"
         if (skin)
             customClassName += " button__skin--" + skin
+
+        if (hoverSkin)
+            customClassName += " button__hover_skin--" + hoverSkin
 
         if (size)
             customClassName += " button__size--" + size
@@ -30,12 +36,14 @@ class Button extends React.Component<Props>{
 
         if (className)
             customClassName += " " + className;
-
+        if(longButton)
+            customClassName += " longButton";
 
         return (
-            <button className={customClassName} onClick={onClick}>
-                {children}
-            </button>
+            <div className={customClassName} onClick={onClick}>
+                <span>{children}</span>
+                {icon && <span><Icon size="m" name={icon}> </Icon></span>}
+            </div>
         )
     }
 }

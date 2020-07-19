@@ -1,0 +1,17 @@
+.basket-page { //de schimbat
+    display: flex;
+    justify-items: stretch;
+    .basket-table{
+        height: max-content;
+        flex: 3;
+        justify-content: center;
+        &.no_items{
+            align-items: center;
+            min-height: 100px;
+        }
+        .loader{
+            align-self: center;
+        }
+    }   
+    @import "./basketSummary/";
+}

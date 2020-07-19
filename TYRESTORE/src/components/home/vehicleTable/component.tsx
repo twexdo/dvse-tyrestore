@@ -32,7 +32,7 @@ class VehicleTable extends React.Component<Props>{
             icon="arrow-right"
             skin={isActive ? "highlight" : undefined}
             onClick={()=>this.props.onSelectVehicle(vehicle)}
-            >Select</Button>
+            >SELECT</Button>
         )
     }
 

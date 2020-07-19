@@ -2,16 +2,21 @@
 
     font-size: $textSize-m;
     font-family: $fontFamily;
+
     display: flex;
     align-items: center;
 
+    flex:1;
+    justify-content: space-between;
+
+    max-width: 100px;
     color: black;
     cursor: pointer;
     outline: none;
     padding: $spacing-s;
     text-decoration: none;
     box-shadow: $shadow;
-    display: inline-block;
+    //display: inline-block;
     border-radius: $radius;
     box-sizing: border-box;
     white-space: nowrap;
@@ -20,6 +25,9 @@
 
     &:hover{
         background-color:$color-primary;
+    }
+    &.longButton{
+        max-width: 1000px;
     }
 
     &__skin {
@@ -54,5 +62,28 @@
     &--disabled{
         pointer-events: none;
         opacity: 0.6;
+    }
+    //by me
+    .icon{
+        margin-right: -10px;
+    }
+    
+   
+        justify-content: center;
+    
+
+    &__hover_skin {
+        &--primary:hover{
+            background-color: $color-primary;
+        }
+        &--highlight:hover{
+            background-color: $color-highlight;
+        }
+        &--danger:hover{
+            background-color: $color-danger;
+        }
+        &--success:hover{
+            background-color: $color-success;
+        }
     }
 }

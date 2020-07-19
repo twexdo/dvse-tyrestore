@@ -1,0 +1,16 @@
+.summary{
+    flex:1;
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+    justify-items: initial;
+    background-color: rgba(255, 255, 255, 0.486);
+    box-shadow: $shadow;
+    margin:10px;
+    padding:15px;
+    .total-price-show{
+        display: flex;
+        justify-content: space-between;
+    }
+    
+}

@@ -5,9 +5,9 @@ export type Vehicle={
     id:number
     name:string
     manufacturerName:string
-    manufactrerLogo:string
+    manufacturerLogo:string
 }
-export type Tyre={
+export type Tire={
     id:number
     brand:string
     season:string

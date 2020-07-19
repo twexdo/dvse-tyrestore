@@ -1,20 +1,30 @@
 import * as React from "react"
 import {Text,Icon} from "../shared"
 import { withRouter, RouteComponentProps } from "react-router"
-type Props=RouteComponentProps & {
+import { StoreType } from "../../buisness/model"
+import { connect } from "react-redux"
+type Props=StoreProps & RouteComponentProps & {
 
 }
-
+type StoreProps={
+    basketCount:number
+}
 class Header  extends React.Component<Props>{
     render(){
         const {history}=this.props
         return(
             <div className="header">
                 <div id="logo" onClick={()=>{history.push("/")}}></div>
-                <Text strong size="l">Tyrestore - Powered by my coffee</Text>
-                <Icon name="basket" size="l" badge={4} onClick={()=>{history.push("/basket")}}></Icon>
+                <Text strong size="l">Tirestore - Powered by my coffee</Text>
+                <Icon name="basket" size="l" badge={this.props.basketCount} onClick={()=>{history.push("/basket")}}></Icon>
             </div>
         )
     }
 }
-export default withRouter(Header)
+function mapStateToProps(store:StoreType):StoreProps{
+    return{
+        basketCount:store.basket.items.length
+    }
+
+}
+export default connect(mapStateToProps)(withRouter(Header))

@@ -1,5 +1,5 @@
 import * as React from "react"
-import { Text } from "../index"
+import { Text, Loader } from "../index"
 
 type Props<T> = {
     className?: string
@@ -7,16 +7,24 @@ type Props<T> = {
     columns: Array<(T) => React.ReactElement>
     items: T[]
     loading?: boolean
+    alt?:string
 }
 
 class Table<T> extends React.Component<Props<T>> {
     render() {
-        const { headers, className, items, columns, loading } = this.props
+        const { headers, className, items, columns, loading,alt } = this.props
 
         if (loading) {
             return (
                 <div className={"table " + className ?? ""}>
-                   
+                   <Loader/>
+                </div>
+            )
+        }
+        if(items.length<=0){
+            return(
+                <div className={"table " +( className ?? "   " ) +" no_items"}>
+                   <Text>{alt}</Text>
                 </div>
             )
         }

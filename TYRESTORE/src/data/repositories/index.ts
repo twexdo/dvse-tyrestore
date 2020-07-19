@@ -1,7 +1,7 @@
 import { getAllVehicles } from "./getAllVehicles"
-import { getTyresById   }  from "./getTyresById"
+import { getTiresById   }  from "./getTiresById"
 
 export const Repository={
     getAllVehicles,
-    getTyresById
+    getTiresById
 }

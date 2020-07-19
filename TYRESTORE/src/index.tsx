@@ -7,11 +7,18 @@ import Header from "./components/header/component"
 import { Router, Route, Switch } from "react-router"
 import Home from "./components/home/component"
 import Basket from "./components/basket/component"
+import { createStore } from "redux"
+import { reducer } from "./buisness/reducer"
+import { Provider } from "react-redux"
 
 
 const history = createBrowserHistory()
+
+const store=createStore(reducer)
+
 function startApp() {
     return (
+        <Provider store={store}>
         <Router history={history}>
             <Header ></Header>
             <Switch>
@@ -25,6 +32,7 @@ function startApp() {
                 
             </Switch>
         </Router>
+        </Provider>
     )
 }
 

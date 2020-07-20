@@ -2,14 +2,14 @@ import * as React from "react"
 import Text from "../shared/text/component"
 import { Tire, Vehicle } from "../../data/models"
 import { StoreType } from "../../buisness/model"
-import { connect } from "react-redux"
+import { connect, DispatchProp } from "react-redux"
 import BasketTable from "./basketTable/component"
 import { IActions, Actions } from "../../buisness/actions"
 import { Dispatch, bindActionCreators } from "redux"
 import { Button } from "../shared"
 import Summary from "./basketSummary/component"
 
-type Props=StoreProps  & {
+type Props=DispatchProps & StoreProps  & {
 
 }
 type StoreProps={
@@ -17,8 +17,26 @@ type StoreProps={
 
 }
 
+type DispatchProps={
+    actions:IActions
+
+}
+
+
+
 class Basket  extends React.Component<Props>{
- 
+    
+    handleOnAdd(tire:Tire){
+        console.log("clicked")
+        this.props.actions.addTireToBasket(tire)
+    }
+    handleOnRemove(tire:Tire){
+        //nu uita sa editezi si in web-Api
+        this.props.actions.removeTireFromBasket(tire)
+        
+        
+    }
+    
     render(){
         let total:number=0
         let taxes=12
@@ -29,12 +47,12 @@ class Basket  extends React.Component<Props>{
             <div className="basket-page">
                  <BasketTable
                         tires={this.props.basketItems}
-                        onAdd={()=>{}} 
-                        onRemove={()=>{}}
+                        onAdd={this.handleOnAdd.bind(this)} 
+                        onRemove={this.handleOnRemove.bind(this)}
                     ></BasketTable>
                     {this.props.basketItems.length>0 && 
 
-                        <Summary totalPrice={total} tax={taxes} ></Summary>
+                        <Summary totalPrice={total} tax={taxes} onBTNClick={()=>{console.log(this.props.basketItems)}} ></Summary>
                     }
            
             </div>
@@ -48,5 +66,19 @@ class Basket  extends React.Component<Props>{
     }
 }
 
+function  mapDispatchToProps(dispatch:Dispatch):DispatchProps{
+    return{
+        actions:{
+            vehiclesLoading: () =>dispatch(Actions.vehiclesLoading()),
+            //vehiclesLoaded: (vehicles:Vehicle[]) =>dispatch(Actions.vehiclesLoaded(vehicles))//mai usor de scris  
 
-export default connect(mapStateToProps)(Basket)
+            vehiclesLoaded :bindActionCreators(Actions.vehiclesLoaded,dispatch),
+            selectVehicle: bindActionCreators(Actions.selectVehicle,dispatch),
+            tiresLoaded:bindActionCreators(Actions.tiresLoaded,dispatch),
+            addTireToBasket:bindActionCreators(Actions.addTireToBasket,dispatch),
+            removeTireFromBasket:bindActionCreators(Actions.removeTireFromBasket,dispatch),
+        }
+    }   
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Basket)

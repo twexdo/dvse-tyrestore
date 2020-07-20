@@ -24,12 +24,18 @@ function addTireToBasket(tire:Tire):ComponentActionType{
     return {type:"ADD_TIRE_TO_BASKET",payload:tire}
 
 }
+function removeTireFromBasket(tire:Tire):ComponentActionType{
+    return {type:"REMOVE_TIRE_FROM_BASKET",payload:tire}
+
+}
+
 
 export const Actions={
     vehiclesLoading,
     vehiclesLoaded,
     selectVehicle,
     tiresLoaded,
-    addTireToBasket
+    addTireToBasket,
+    removeTireFromBasket
 }
 export type IActions=typeof Actions

@@ -1,4 +1,5 @@
 import { StoreType, ComponentActionType } from "./model";
+import { Action } from "redux";
 
 const DEFAULT_STATE: StoreType = {
     basket: {
@@ -11,6 +12,11 @@ const DEFAULT_STATE: StoreType = {
         items: []
     }
 
+}
+var incrementor = 0;
+function getID() {
+    incrementor += 1;
+    return incrementor;
 }
 export function reducer(state = DEFAULT_STATE, action: ComponentActionType): StoreType {
     switch (action.type) {
@@ -37,10 +43,10 @@ export function reducer(state = DEFAULT_STATE, action: ComponentActionType): Sto
             return {
                 ...state,
                 selectedVehicle: state.selectedVehicle?.id != action.payload.id ? action.payload : undefined,
-                tires:{
+                tires: {
                     ...state.tires,
-                    items:[],
-                    loading:true
+                    items: [],
+                    loading: true
 
                 }
             }
@@ -48,22 +54,38 @@ export function reducer(state = DEFAULT_STATE, action: ComponentActionType): Sto
         case "TIRES_LOADED": {
             return {
                 ...state,
-                tires:{
+                tires: {
                     ...state.tires,
-                    loading:false,
-                    items:action.payload
+                    loading: false,
+                    items: action.payload
                 }
             }
         }
         case "ADD_TIRE_TO_BASKET": {
             return {
                 ...state,
-                basket:{
-                    items:[ ...state.basket.items, action.payload]
+                basket: {
+                    items: [...state.basket.items, action.payload]
+                }
+            }
+        }
+        case "REMOVE_TIRE_FROM_BASKET": {
+            return {
+                ...state,
+                basket: {
+                    items:del(action.payload,state)
                 }
             }
         }
 
+
     }
     return state
+}
+function del(itemX: any, state: any) {
+    let itemss = state.basket.items
+    const index = itemss.indexOf(itemX)
+    itemss.splice(index, 1)
+    return itemss
+
 }

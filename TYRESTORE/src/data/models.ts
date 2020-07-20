@@ -8,6 +8,7 @@ export type Vehicle={
     manufacturerLogo:string
 }
 export type Tire={
+    diferences?:string
     id:number
     brand:string
     season:string

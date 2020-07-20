@@ -3,13 +3,14 @@ import { Text, Button } from "../../shared/index"
 
 type Props = {
     totalPrice: number
-    tax:number
+    tax: number
+    onBTNClick?():void
 }
 
 class Summary extends React.Component<Props>{
     render() {
-        const {totalPrice,tax} = this.props
-       
+        const { totalPrice, tax,onBTNClick } = this.props
+
         console.log(totalPrice)
         return (
             <div className="summary">
@@ -20,12 +21,12 @@ class Summary extends React.Component<Props>{
                 </div>
                 <div className="total-price-show">
                     <Text size="m">Delivery cost:</Text>
-        <span><Text size="m">{tax} Lei</Text></span>
+                    <span><Text size="m">{tax} Lei</Text></span>
                 </div>
                 <hr></hr>
                 <Text strong size="l">Total:</Text><br></br>
-                <Text strong size="l">{totalPrice+tax}  Lei</Text><br></br>
-                <Button longButton skin="success">Proceed</Button>
+                <Text strong size="l">{totalPrice + tax}  Lei</Text><br></br>
+                <Button onClick={onBTNClick} longButton skin="success">Proceed</Button>
             </div>
 
         )

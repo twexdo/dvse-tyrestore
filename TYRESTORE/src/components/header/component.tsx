@@ -3,13 +3,26 @@ import {Text,Icon} from "../shared"
 import { withRouter, RouteComponentProps } from "react-router"
 import { StoreType } from "../../buisness/model"
 import { connect } from "react-redux"
+import { BasketTires } from "../../data/models"
 type Props=StoreProps & RouteComponentProps & {
 
 }
 type StoreProps={
-    basketCount:number
+    basket:BasketTires[]
 }
 class Header  extends React.Component<Props>{
+
+    calculate():number{
+        let x=0
+        this.props.basket.forEach(element =>{
+            
+            x+=element.amount
+
+        })
+        if(x){return x}
+        else{return -20}
+    }
+
     render(){
         const {history}=this.props
         return(
@@ -18,7 +31,7 @@ class Header  extends React.Component<Props>{
                 <Text strong size="l">Tirestore - Powered by my coffee</Text>
                 <div>   
                 <Icon name="user" size="l" onClick={()=>{history.push("/login")}}></Icon>
-                <Icon name="basket" size="l" badge={this.props.basketCount} onClick={()=>{history.push("/basket")}}></Icon>
+                <Icon name="basket" size="l" badge={this.calculate()} onClick={()=>{history.push("/basket")}}></Icon>
                 </div>
             </div>
         )
@@ -26,7 +39,7 @@ class Header  extends React.Component<Props>{
 }
 function mapStateToProps(store:StoreType):StoreProps{
     return{
-        basketCount:store.basket.items.length
+        basket:store.basket.items
     }
 
 }

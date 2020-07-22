@@ -1,50 +1,45 @@
 import * as React from "react"
-import { Tire } from "../../../data/models"
+import { BasketTires } from "../../../data/models"
 import { Table, Text, Button } from "../../shared/index"
 import { Router, Route, RouteComponentProps, withRouter } from 'react-router';
 type Props = RouteComponentProps & {
     loading?: boolean
-    tires: Tire[]
-    amount: number[]
-    onAdd(item: Tire): void
-    onRemove(item: Tire): void
+    tires: BasketTires[]
+    onAdd(item: BasketTires): void
+    onRemove(item: BasketTires): void
 }
 
 class BasketTable extends React.Component<Props>{
 
-
-
-
-    renderBrand(tire: Tire) {
+    renderBrand(tire: BasketTires) {
         return <Text>{tire.brand}</Text>
     }
 
-    renderSize(tire: Tire) {
+    renderSize(tire: BasketTires) {
         return <Text>{tire.size}</Text>
     }
 
-    renderPrice(tire: Tire) {
+    renderPrice(tire: BasketTires) {
         return <Text>{tire.price + " RON"}</Text>
     }
+    renderID(tire: BasketTires) {
+        return <Text>{tire.id}</Text>
+    }
 
-
-    renderSeason(tire: Tire) {
+    renderSeason(tire: BasketTires) {
         return <Text>{tire.season}</Text>
     }
 
-    renderAmount(tire: Tire) {
-        const index = this.props.tires.indexOf(tire)
-        const amount = this.props.amount[index]
-        console.log(index + " => " + amount)
-        return <Text>{amount}</Text>//change to amount
+    renderAmount(tire: BasketTires) {
+        return <Text>{tire.amount}</Text>
     }
 
-    renderAdd(tire: Tire) {
+    renderAdd(tire: BasketTires) {
         return <Button icon="add"
             onClick={() => { this.props.onAdd(tire) }}
         >Add</Button>
     }
-    renderRemove(tire: Tire) {
+    renderRemove(tire: BasketTires) {
         return <Button icon="remove"
             hoverSkin="danger"
             onClick={() => this.props.onRemove(tire)}
@@ -58,17 +53,19 @@ class BasketTable extends React.Component<Props>{
         return (
             <Table
                 className="basket-table"
-                headers={["Size", "Brand", "Season", "Price  ", "Amount", "Action+", "Action-"]}
+                headers={["Brand", "Season", "Price  ", "Amount", "Action+", "Action-"]}// 
                 loading={loading}
                 items={this.props.tires}
                 alt="Go buy something :)) "
-                columns={[this.renderSize,
-                this.renderBrand,
-                this.renderSeason,
-                this.renderPrice,
-                this.renderAmount.bind(this),
-                this.renderAdd.bind(this),
-                this.renderRemove.bind(this)]}
+                columns={[
+                    //this.renderID,
+                    this.renderSize,
+                    this.renderBrand,
+                    this.renderSeason,
+                    this.renderPrice,
+                    this.renderAmount.bind(this),
+                    this.renderAdd.bind(this),
+                    this.renderRemove.bind(this)]}
             >
                 {<Button hoverSkin="highlight" size="m" longButton onClick={() => { history.push('/') /* de ce are delay?*/ }}> Back to shop </Button>}
             </Table>

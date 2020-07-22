@@ -8,10 +8,15 @@ export type Vehicle={
     manufacturerLogo:string
 }
 export type Tire={
-    diferences?:string
     id:number
     brand:string
     season:string
     price:number
+    part:string
+    tyreId:number
     size:string
 }
+export type BasketTires=Tire & {
+    amount:number
+}
+

@@ -1,5 +1,5 @@
 import { ComponentActionType } from "./model";
-import { Vehicle, Tire } from "../data/models";
+import { Vehicle, Tire,BasketTires } from "../data/models";
 
 function vehiclesLoading():ComponentActionType{
     return{type:"VEHICLE_LOADING"}
@@ -20,11 +20,11 @@ function tiresLoaded(tires:Tire[]):ComponentActionType{
      
 }
 
-function addTireToBasket(tire:Tire):ComponentActionType{
+function addTireToBasket(tire:BasketTires):ComponentActionType{
     return {type:"ADD_TIRE_TO_BASKET",payload:tire}
 
 }
-function removeTireFromBasket(tire:Tire):ComponentActionType{
+function removeTireFromBasket(tire:BasketTires):ComponentActionType{
     return {type:"REMOVE_TIRE_FROM_BASKET",payload:tire}
 
 }

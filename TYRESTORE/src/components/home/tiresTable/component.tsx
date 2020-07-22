@@ -1,28 +1,28 @@
 import * as React from "react"
-import { Tire } from "../../../data/models"
+import { Tire, BasketTires } from "../../../data/models"
 import { Table, Text, Button } from "../../shared/index"
 
 type Props = {
     loading?: boolean
     tires: Tire[]
-    onAddToBasket(item:Tire):void
+    onAddToBasket(item:BasketTires):void
 }
 
 class TiresTable extends React.Component<Props>{
 
-    renderBrand(tire: Tire) {
+    renderBrand(tire: BasketTires) {
         return <Text>{tire.brand}</Text>
     }
-    renderPrice(tire: Tire) {
+    renderPrice(tire: BasketTires) {
         return <Text strong skin={"primary"}>{tire.price+" RON"}</Text>
     }
-    renderSize(tire: Tire) {
+    renderSize(tire: BasketTires) {
         return <Text>{tire.size}</Text>
     }
-    renderSeason(tire: Tire) {
+    renderSeason(tire: BasketTires) {
         return <Text>{tire.season}</Text>
     }
-    renderActions(tire: Tire) {
+    renderActions(tire: BasketTires) {
         return <Button icon="add"
                         onClick={()=>this.props.onAddToBasket(tire)}
                        >Add</Button>

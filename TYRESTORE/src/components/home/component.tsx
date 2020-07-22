@@ -1,7 +1,7 @@
 import * as React from "react"
 import Text from "../shared/text/component"
 import {Repository} from "../../data/repositories"
-import { Tire, Vehicle } from "../../data/models"
+import { Tire, Vehicle, BasketTires } from "../../data/models"
 import VehicleTable from "./vehicleTable/component"
 import { StoreType } from "../../buisness/model"
 import { connect, DispatchProp } from "react-redux"
@@ -44,7 +44,7 @@ class Home  extends React.Component<Props>{
         )
     }
 
-    handleTiresToBasket(tire:Tire){
+    handleTiresToBasket(tire:BasketTires){
         this.props.actions.addTireToBasket(tire)
     }
 

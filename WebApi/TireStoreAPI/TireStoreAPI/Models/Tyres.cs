@@ -7,7 +7,7 @@ namespace TireStoreAPI.Models
     {
         public Tyres()
         {
-            Itemz = new HashSet<Itemz>();
+
         }
 
         public int Id { get; set; }
@@ -19,6 +19,5 @@ namespace TireStoreAPI.Models
         public int? TyreId { get; set; }
 
         public virtual TyresSizes Tyre { get; set; }
-        public virtual ICollection<Itemz> Itemz { get; set; }
     }
 }

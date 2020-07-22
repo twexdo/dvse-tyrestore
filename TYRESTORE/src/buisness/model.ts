@@ -1,4 +1,4 @@
-import { Vehicle, Tire } from "../data/models";
+import { Vehicle, Tire, BasketTires } from "../data/models";
 
 export type StoreType={
     vehicles:{
@@ -8,10 +8,13 @@ export type StoreType={
     tires:{
         loading?:boolean
         items:Tire[]
+        
     }
     basket:{
-        items:Tire[]
+        items:BasketTires[]
     }
+    
+
     selectedVehicle?:Vehicle
 }
 
@@ -20,5 +23,5 @@ export type ComponentActionType=
     {type:"VEHICLE_LOADED",payload:Vehicle[] } |
     {type:"SELECT_VEHICLE",payload:Vehicle} |
     {type:"TIRES_LOADED",payload:Tire[]} |
-    {type:"ADD_TIRE_TO_BASKET",payload:Tire}|
-    {type:"REMOVE_TIRE_FROM_BASKET",payload:Tire}
+    {type:"ADD_TIRE_TO_BASKET",payload:BasketTires}|
+    {type:"REMOVE_TIRE_FROM_BASKET",payload:BasketTires}

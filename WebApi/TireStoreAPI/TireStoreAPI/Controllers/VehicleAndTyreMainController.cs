@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
 using TireStoreAPI.Models;
-
 namespace TireStoreAPI.Controllers
 {
     [Route("api/[controller]")]
@@ -42,12 +42,16 @@ namespace TireStoreAPI.Controllers
             return await joinedManufacturers.ToListAsync();
         }
 
-        [HttpPost, Route("GetTyreByVehicleModelId")]
-        public async Task<ActionResult<IEnumerable<Tyres>>> GetTyreByVehicleModelId([FromBody] int id)
+        [HttpGet, Route("GetTyreByVehicleModelId/{id?}")]//rezolva idul
+        public async Task<ActionResult<IEnumerable<Tyres>>> GetTyreByVehicleModelId(int id)
         {
+
+            Console.WriteLine("THE_ID_IS : "+id);
+
+
             var tyreModel = _context.TyresModels.Where(x => x.ModelId == id);
 
-            var joinedTyreSizes = _context.TyresModels.Join(
+            var joinedTyreSizes = tyreModel.Join(
                 _context.TyresSizes,
                 model => model.TyreId,
                 sizes => sizes.Id,

@@ -3,13 +3,13 @@ import axios from "axios"
 
 export function getAllVehicles() {
     return new Promise<Vehicle[]>((resolve, reject) => {
-        const host = "https://tyrestore-api.dvsero.tk/"//pentru a nu trebui sa imi tin eu server deschis :)) //de schimbat cu localhost cand vreau sa imi folosesc eu serverul
-        const method = "api/VehiclesAndTyresMain/GetVehicleModelsWithManufacturers"
+        const host = "https://localhost:44342/"
+        const method = "api/VehicleAndTyreMain/GetVehicleModelsWithManufacturers"
 
         axios.get(host + method).then(
             response => {
                 if (response.data) {
-                    resolve(mapResponseToVehicle(response.data ))
+                    resolve(mapResponseToVehicle(response.data))
                 } else {
                     reject()
                 }

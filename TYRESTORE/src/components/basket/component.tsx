@@ -1,5 +1,5 @@
 import * as React from "react"
-import { Tire } from "../../data/models"
+import { Tire, BasketTires } from "../../data/models"
 import { StoreType } from "../../buisness/model"
 import { connect } from "react-redux"
 import BasketTable from "./basketTable/component"
@@ -11,7 +11,7 @@ type Props = DispatchProps & StoreProps & {
 
 }
 type StoreProps = {
-    basketItems: Tire[]
+    basketItems: BasketTires[]
 
 }
 
@@ -19,78 +19,27 @@ type DispatchProps = {
     actions: IActions
 
 }
-type State = {
-    niceBasket: Tire[]
-    amount: number[]
-}
-class Basket extends React.Component<Props,State>{
-    constructor(props) {
-        super(props)
-        this.state = {
-            niceBasket: [],
-            amount: []
-        }
-    }
-
-
-    makeNiceBasket() {
-        let bsk: Tire[]=[]
-        let amnt: number[]=[]
-        let i:number=0
-        this.props.basketItems.forEach(t => {
-            
-            if (!bsk.includes(t)) {
-                console.log("adding to  bsk["+i+"]")
-                bsk[i] = t
-                amnt[i]=1
-                i++
-            }
-            else {
-                const ii=bsk.indexOf(t)
-                amnt[ii]=amnt[ii]+1
-                console.log( ii+" should be x "+amnt[ii])
-
-            }
-        })
-        this.setState(
-            {
-                ...this.state,
-                niceBasket: [...bsk],
-                amount: [...amnt]
-
-            }
-        )
-    }
-
-
-    handleOnAdd(tire: Tire) {
+class Basket extends React.Component<Props>{
+    handleOnAdd(tire: BasketTires) {
         
         this.props.actions.addTireToBasket(tire)
-        this.makeNiceBasket()
         
     }
-    handleOnRemove(tire: Tire) {
+    handleOnRemove(tire: BasketTires) {
         //nu uita sa editezi si in web-Api
         this.props.actions.removeTireFromBasket(tire)
-        this.makeNiceBasket()
     }
-
-    componentWillMount(){
-        this.makeNiceBasket()
-    }
-    
 
     render() {
         let total: number = 0
         let taxes = 12
         this.props.basketItems.forEach(item => {
-            total += item.price
+            total += item.price*item.amount
         })
         return (
             <div className="basket-page">
                 <BasketTable
-                    tires={this.state.niceBasket}
-                    amount={this.state.amount}
+                    tires={this.props.basketItems}
                     onAdd={this.handleOnAdd.bind(this)}
                     onRemove={this.handleOnRemove.bind(this)}
                 > </BasketTable>

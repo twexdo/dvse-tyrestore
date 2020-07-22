@@ -3,8 +3,8 @@ import axios from "axios"
 
 export function getTiresById(id:number) {
     return new Promise<Tire[]>((resolve, reject) => {
-        const host = "https://tyrestore-api.dvsero.tk/"//pentru a nu trebui sa imi tin eu server deschis :)) //de schimbat cu localhost cand vreau sa imi folosesc eu serverul
-        const method = "api/VehiclesAndTyresMain/GetTyreByVehicleModelId/"+id
+        const host = "https://localhost:44342/"
+        const method = "api/VehicleAndTyreMain/GetTyreByVehicleModelId/"+id
 
         axios.get(host + method).then(
             response => {

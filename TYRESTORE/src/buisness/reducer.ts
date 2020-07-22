@@ -1,5 +1,6 @@
 import { StoreType, ComponentActionType } from "./model";
 import { Action } from "redux";
+import { Tire } from "../data/models";
 
 const DEFAULT_STATE: StoreType = {
     basket: {
@@ -73,7 +74,7 @@ export function reducer(state = DEFAULT_STATE, action: ComponentActionType): Sto
             return {
                 ...state,
                 basket: {
-                    items:del(action.payload,state)
+                    items:del(action.payload,state.basket.items)
                 }
             }
         }
@@ -82,10 +83,9 @@ export function reducer(state = DEFAULT_STATE, action: ComponentActionType): Sto
     }
     return state
 }
-function del(itemX: any, state: any) {
-    let itemss = state.basket.items
-    const index = itemss.indexOf(itemX)
-    itemss.splice(index, 1)
-    return itemss
+function del(itemX: Tire, state:Tire[]) {
+    const index = state.indexOf(itemX)
+    state.splice(index, 1)
+    return [...state]
 
 }

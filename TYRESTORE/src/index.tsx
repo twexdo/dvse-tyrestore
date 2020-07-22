@@ -7,6 +7,8 @@ import Header from "./components/header/component"
 import { Router, Route, Switch } from "react-router"
 import Home from "./components/home/component"
 import Basket from "./components/basket/component"
+import Login  from "./components/login/component"
+import Signin  from "./components/signin/component"
 import { createStore } from "redux"
 import { reducer } from "./buisness/reducer"
 import { Provider } from "react-redux"
@@ -24,6 +26,14 @@ function startApp() {
             <Switch>
                 <Route path="/basket">
                     <Basket></Basket>
+                </Route>
+
+                <Route path="/login">
+                    <Login></Login>
+                </Route>
+
+                <Route path="/signin">
+                    <Signin></Signin>
                 </Route>
 
                 <Route path="/">

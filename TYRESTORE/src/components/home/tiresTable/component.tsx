@@ -39,7 +39,7 @@ class TiresTable extends React.Component<Props>{
                 headers={["Size", "Brand", "Season", "Price  ", "Actions"]}
                 loading={loading}
                 items={tires}
-                alt="Sorry we have no tires for this type of car..."
+                alt="Sorry, we have no tires for this type of car..."
                 columns={[this.renderSize, this.renderBrand, this.renderSeason, this.renderPrice, this.renderActions.bind(this)]}
             ></Table>
             

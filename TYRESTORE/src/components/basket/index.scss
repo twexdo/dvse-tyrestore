@@ -1,14 +1,14 @@
 .basket-page { //de schimbat
+    
     display: flex;
-    justify-items: stretch;
     .basket-table{
-        height: max-content;
         flex: 3;
         justify-content: center;
+        height: max-content;
         &.no_items{
-            align-items: center;
-            min-height: 100px;
+            flex:1;
         }
+        
         .loader{
             align-self: center;
         }

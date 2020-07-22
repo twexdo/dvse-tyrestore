@@ -16,7 +16,10 @@ class Header  extends React.Component<Props>{
             <div className="header">
                 <div id="logo" onClick={()=>{history.push("/")}}></div>
                 <Text strong size="l">Tirestore - Powered by my coffee</Text>
+                <div>   
+                <Icon name="user" size="l" onClick={()=>{history.push("/login")}}></Icon>
                 <Icon name="basket" size="l" badge={this.props.basketCount} onClick={()=>{history.push("/basket")}}></Icon>
+                </div>
             </div>
         )
     }

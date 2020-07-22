@@ -15,9 +15,11 @@ namespace TireStoreAPI.Models
         {
         }
 
+        public virtual DbSet<Itemz> Itemz { get; set; }
         public virtual DbSet<Tyres> Tyres { get; set; }
         public virtual DbSet<TyresModels> TyresModels { get; set; }
         public virtual DbSet<TyresSizes> TyresSizes { get; set; }
+        public virtual DbSet<Users> Users { get; set; }
         public virtual DbSet<VehicleManufacturers> VehicleManufacturers { get; set; }
         public virtual DbSet<VehicleModels> VehicleModels { get; set; }
 
@@ -31,6 +33,27 @@ namespace TireStoreAPI.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Itemz>(entity =>
+            {
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.IdTire).HasColumnName("id_tire");
+
+                entity.Property(e => e.IdUser).HasColumnName("id_user");
+
+                entity.HasOne(d => d.IdTireNavigation)
+                    .WithMany(p => p.Itemz)
+                    .HasForeignKey(d => d.IdTire)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Itemz_tyres");
+
+                entity.HasOne(d => d.IdUserNavigation)
+                    .WithMany(p => p.Itemz)
+                    .HasForeignKey(d => d.IdUser)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Itemz_users");
+            });
+
             modelBuilder.Entity<Tyres>(entity =>
             {
                 entity.ToTable("tyres");
@@ -61,7 +84,7 @@ namespace TireStoreAPI.Models
                 entity.HasOne(d => d.Tyre)
                     .WithMany(p => p.Tyres)
                     .HasForeignKey(d => d.TyreId)
-                    .HasConstraintName("FK__tyres__tyre_id__38996AB5");
+                    .HasConstraintName("FK__tyres__tyre_id__60A75C0F");
             });
 
             modelBuilder.Entity<TyresModels>(entity =>
@@ -78,13 +101,13 @@ namespace TireStoreAPI.Models
                     .WithMany(p => p.TyresModels)
                     .HasForeignKey(d => d.ModelId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__tyres_mod__model__3E52440B");
+                    .HasConstraintName("FK__tyres_mod__model__66603565");
 
                 entity.HasOne(d => d.Tyre)
                     .WithMany(p => p.TyresModels)
                     .HasForeignKey(d => d.TyreId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__tyres_mod__tyre___3F466844");
+                    .HasConstraintName("FK__tyres_mod__tyre___6754599E");
             });
 
             modelBuilder.Entity<TyresSizes>(entity =>
@@ -110,6 +133,31 @@ namespace TireStoreAPI.Models
                 entity.Property(e => e.TyreWidth)
                     .HasColumnName("tyre_width")
                     .HasColumnType("decimal(38, 0)");
+            });
+
+            modelBuilder.Entity<Users>(entity =>
+            {
+                entity.ToTable("users");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Mail)
+                    .IsRequired()
+                    .HasColumnName("mail")
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasColumnName("name")
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Password)
+                    .IsRequired()
+                    .HasColumnName("password")
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
             });
 
             modelBuilder.Entity<VehicleManufacturers>(entity =>
@@ -168,7 +216,7 @@ namespace TireStoreAPI.Models
                     .WithMany(p => p.VehicleModels)
                     .HasForeignKey(d => d.ManufacturerId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__vehicle_m__manuf__2D27B809");
+                    .HasConstraintName("FK__vehicle_m__manuf__5535A963");
             });
 
             OnModelCreatingPartial(modelBuilder);

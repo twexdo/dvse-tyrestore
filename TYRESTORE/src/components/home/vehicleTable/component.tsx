@@ -1,6 +1,6 @@
 import * as React from "react"
 import { Vehicle } from "../../../data/models"
-import { Table,Text, Button } from "../../shared/index"
+import { Table,Text, Button, Loader } from "../../shared/index"
 
 type Props = {
     loading?: boolean
@@ -48,7 +48,10 @@ class VehicleTable extends React.Component<Props>{
             loading={loading}
             items={vehicles}
             columns={[this.renderLogo,this.renderManufacturer,this.renderName,this.renderActions.bind(this)]}
-             ></Table>
+             >  
+                 <Loader/>
+                 <Text>Models are loading for you ...</Text>
+             </Table>
         )
     }
 

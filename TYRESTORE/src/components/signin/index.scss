@@ -1,0 +1,37 @@
+.signin{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: red;
+    height: 100%;    
+
+    .form {
+        border-radius:$radius ;
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+        justify-items: center;
+        background-color: white;
+        padding: $spacing-l;
+        .button{
+            display: flex;
+            justify-content: center;
+            height: max-content;
+            padding:0px;
+            margin-bottom: $spacing-l;
+        }
+        *{  
+            margin:$spacing-s;
+        }
+        input{
+            border:none;
+            background-color: #f2f2f2;
+            padding:$spacing-m;
+
+        }
+        .txt{
+            text-align: center;
+        }
+      }
+    
+}

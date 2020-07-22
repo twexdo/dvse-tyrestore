@@ -1,5 +1,5 @@
 import * as React from "react"
-import { Text, Loader } from "../index"
+import { Text, Loader, Button } from "../index"
 
 type Props<T> = {
     className?: string
@@ -12,7 +12,7 @@ type Props<T> = {
 
 class Table<T> extends React.Component<Props<T>> {
     render() {
-        const { headers, className, items, columns, loading,alt } = this.props
+        const { headers, className, items, columns, loading,alt,children } = this.props
 
         if (loading) {
             return (
@@ -25,6 +25,7 @@ class Table<T> extends React.Component<Props<T>> {
             return(
                 <div className={"table " +( className ?? "   " ) +" no_items"}>
                    <Text>{alt}</Text>
+                   {children}
                 </div>
             )
         }

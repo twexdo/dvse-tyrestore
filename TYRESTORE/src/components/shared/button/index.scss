@@ -16,13 +16,13 @@
     padding: $spacing-s;
     text-decoration: none;
     box-shadow: $shadow;
-    //display: inline-block;
+    display: inline-block;
     border-radius: $radius;
     box-sizing: border-box;
     white-space: nowrap;
     border-color: transparent;
     background-color: $color-default;
-
+    user-select: none;
     &:hover{
         background-color:$color-primary;
     }

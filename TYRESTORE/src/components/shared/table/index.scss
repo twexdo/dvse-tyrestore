@@ -15,6 +15,19 @@
             flex: 1;
         }
     }
+    &.no_items{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-direction: column;
+        padding:$spacing-l;
+        
+        *{
+            margin:$spacing-s;
+        }
+        //box-shadow: none;
+    }
+
 
     &__content {
         flex: 1;

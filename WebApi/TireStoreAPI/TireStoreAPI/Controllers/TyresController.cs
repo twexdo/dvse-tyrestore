@@ -92,12 +92,12 @@ namespace TireStoreAPI.Controllers
 
             _context.Tyres.Add(tyre);
             _context.Database.OpenConnection();
-            _context.Database.ExecuteSqlCommand("SET  IDENTITY_INSERT  tyres ON");
+           // _context.Database.ExecuteSqlCommand("SET  IDENTITY_INSERT  tyres ON");
 
             await _context.SaveChangesAsync();
 
 
-            _context.Database.ExecuteSqlCommand("SET  IDENTITY_INSERT  tyres OFF");
+           // _context.Database.ExecuteSqlCommand("SET  IDENTITY_INSERT  tyres OFF");
 
             return await _context.Tyres.ToListAsync();
         }
@@ -105,34 +105,48 @@ namespace TireStoreAPI.Controllers
 
         // ADDTOBASKET: api/Tyres/5   de updatat cu buy 
         [HttpPost, Route("AddTyreToBasket")]
-        public async Task<ActionResult<IEnumerable<Tyres>>> AddTyreToBasket  ([FromBody] IEnumerable<Tyres> tyresList)
+        public IEnumerable<Tyres> AddTyreToBasket  ([FromBody] IEnumerable<Tyres> tyresList)
         {
 
             Console.WriteLine("Things Updated");
+            var updated = new List<Tyres>();
+
             foreach (var tyre in tyresList) {
 
-                if (!UpdateStock(tyre))
-                    return BadRequest(ModelState);
+                var tyreFromList = UpdateStock(tyre);
+                if (tyreFromList != null) {
+                    if (!updated.Contains(tyreFromList)){
+
+                        updated.Add(tyreFromList);
+                    }
+                    else
+                    {
+                        var index_ = updated.IndexOf(tyreFromList);
+                        updated.Insert(index_, tyreFromList);
+
+                    }
+                   
+
+                }
             }
           
-            await _context.SaveChangesAsync();
+             _context.SaveChangesAsync();
 
 
           
 
-            return await _context.Tyres.ToListAsync();
+            return  updated;
         }
 
-
-
-        private bool UpdateStock(Tyres tyres) {
+      
+        private Tyres UpdateStock(Tyres tyres) {
 
             var updatedTyres = _context.Tyres.ToList().FirstOrDefault(x => x.Id == tyres.Id);
 
                 if (updatedTyres.Stock >= tyres.Stock) {
-                updatedTyres.Stock = updatedTyres.Stock - tyres.Stock;
+                    updatedTyres.Stock = updatedTyres.Stock - tyres.Stock;
                 }
-            return true;
+            return updatedTyres;
         }
 
 

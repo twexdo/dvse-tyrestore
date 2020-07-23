@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +14,11 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using TireStoreAPI.Models;
+
+
+
+
+
 
 namespace TireStoreAPI
 {
@@ -29,6 +35,7 @@ namespace TireStoreAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddCors();
 
             services.AddDbContext<tyresDBContext>(options =>
                    options.UseSqlServer(Configuration.GetConnectionString("TyresDB")));
@@ -45,6 +52,23 @@ namespace TireStoreAPI
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            // using Microsoft.AspNetCore.HttpOverrides;
+            
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+                        {
+                ForwardedHeaders = ForwardedHeaders.All
+                            });
+            
+                        // global cors policy
+            app.UseCors(x => x
+                            .AllowAnyOrigin()
+                            .AllowAnyMethod()
+                           .AllowAnyHeader()
+                        );
+            
+            app.UseAuthentication();
+
+
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
 
@@ -53,6 +77,8 @@ namespace TireStoreAPI
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Tyres API V1");
                 c.RoutePrefix = string.Empty;
             });
+                
+
 
 
             if (env.IsDevelopment())

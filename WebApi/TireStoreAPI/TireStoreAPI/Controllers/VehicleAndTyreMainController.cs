@@ -42,7 +42,7 @@ namespace TireStoreAPI.Controllers
             return await joinedManufacturers.ToListAsync();
         }
 
-        [HttpGet, Route("GetTyreByVehicleModelId/{id?}")]//rezolva idul
+        [HttpGet, Route("GetTyreByVehicleModelId/{id?}")]
         public async Task<ActionResult<IEnumerable<Tyres>>> GetTyreByVehicleModelId(int id)
         {
 

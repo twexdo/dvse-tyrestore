@@ -12,6 +12,7 @@ import Signin  from "./components/signin/component"
 import { createStore } from "redux"
 import { reducer } from "./buisness/reducer"
 import { Provider } from "react-redux"
+import SearchBar from "./components/shared/searchBar/component"
 
 
 const history = createBrowserHistory()
@@ -37,7 +38,7 @@ function startApp() {
                 </Route>
 
                 <Route path="/test">
-                    <div>Noting</div>
+                    <SearchBar/>
                 </Route>
 
                 <Route path="/">

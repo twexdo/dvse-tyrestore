@@ -1,6 +1,6 @@
 import * as React from "react"
 import { BasketTires } from "../../../data/models"
-import { Table, Text, Button } from "../../shared/index"
+import { Table, Text, Button, Input } from "../../shared/index"
 import { Router, Route, RouteComponentProps, withRouter } from 'react-router';
 type Props = RouteComponentProps & {
     loading?: boolean
@@ -32,32 +32,12 @@ class BasketTable extends React.Component<Props>{
 
     renderMax(tire: BasketTires) {
 
-    return <Text>({tire.stock} MAX)</Text>
+        return <Text>({tire.stock} MAX)</Text>
     }
     renderAmount(tire: BasketTires) {
 
-    return <input  onChange={(e)=>{this.editBasket(e,tire)}} defaultValue={tire.amount}></input>
-        }
-
-
-    editBasket(e:any,tire:BasketTires){
-        const value=e.target.value
-        const amount=tire.amount ?? 0
-        const diference=amount-value
-        const max=tire.stock
-        alert(diference)
-       if(diference>0){
-            for(let i=0;i<diference;i++){
-                this.props.onAdd(tire)
-                if(max==i) break
-            }
-        }else if(diference<0){
-            for(let i=0;i<(diference*-1);i++){
-                this.props.onRemove(tire)
-            }
-        }
+        return <Input tire={tire} removeFunc={()=>{this.props.onRemove(tire)}} addFunc={()=>{this.props.onAdd(tire)}} value={tire.amount}></Input>
     }
-
 
     renderAdd(tire: BasketTires) {
         return <Button icon="add"
@@ -70,9 +50,7 @@ class BasketTable extends React.Component<Props>{
             onClick={() => this.props.onRemove(tire)}
         >Remove</Button>
     }
-    renderButton() {
-        return <Button></Button>
-    }
+  
 
     render() {
 
@@ -82,7 +60,7 @@ class BasketTable extends React.Component<Props>{
                 parent="basket"
                 options
                 className="basket-table"
-                headers={["Size", "Brand", "Season", "Price  ","Amount","Max", "Action+", "Action-"]}
+                headers={["Size", "Brand", "Season", "Price  ", "Amount", "Max", "Action+", "Action-"]}
                 loading={loading}
                 items={this.props.tires}
                 alt="Go buy something :)) "

@@ -1,0 +1,11 @@
+.bar{
+    align-self: center;
+    width: 100%;
+    max-width: 400px;
+    background-color: white;
+    border: 1 solid black;
+    box-shadow: $shadow;
+    color:black;
+    margin:$spacing-s;
+    padding:$spacing-s;
+}

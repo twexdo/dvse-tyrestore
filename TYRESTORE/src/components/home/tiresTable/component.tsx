@@ -19,6 +19,9 @@ class TiresTable extends React.Component<Props>{
     renderSize(tire: BasketTires) {
         return <Text>{tire.size}</Text>
     }
+    renderStock(tire:BasketTires){
+        return <Text>{tire.stock}</Text>
+    }
     renderSeason(tire: BasketTires) {
         return <Text>{tire.season}</Text>
     }
@@ -37,12 +40,12 @@ class TiresTable extends React.Component<Props>{
             <Table
             parent="tires"
                 className="tires-table"
-                headers={["Size", "Brand", "Season", "Price  ", "Actions"]}
+                headers={["Size", "Brand", "Season","stock", "Price  ", "Actions"]}
                 loading={loading}
                 items={tires}
                 options
                 alt="Sorry, we have no tires for this type of car..."
-                columns={[this.renderSize, this.renderBrand, this.renderSeason, this.renderPrice, this.renderActions.bind(this)]}
+                columns={[this.renderSize, this.renderBrand, this.renderSeason,this.renderStock, this.renderPrice, this.renderActions.bind(this)]}
             ></Table>
             
         )

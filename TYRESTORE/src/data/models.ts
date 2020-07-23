@@ -12,8 +12,9 @@ export type Tire={
     id:number
     brand:string
     season:string
-    price:number
     part:string
+    price:number
+    stock:number
     tyreId:number
     size:string
 }

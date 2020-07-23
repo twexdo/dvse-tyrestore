@@ -30,9 +30,34 @@ class BasketTable extends React.Component<Props>{
         return <Text>{tire.season}</Text>
     }
 
-    renderAmount(tire: BasketTires) {
-        return <Text>{tire.amount}</Text>
+    renderMax(tire: BasketTires) {
+
+    return <Text>({tire.stock} MAX)</Text>
     }
+    renderAmount(tire: BasketTires) {
+
+    return <input  onChange={(e)=>{this.editBasket(e,tire)}} defaultValue={tire.amount}></input>
+        }
+
+
+    editBasket(e:any,tire:BasketTires){
+        const value=e.target.value
+        const amount=tire.amount ?? 0
+        const diference=amount-value
+        const max=tire.stock
+        alert(diference)
+       if(diference>0){
+            for(let i=0;i<diference;i++){
+                this.props.onAdd(tire)
+                if(max==i) break
+            }
+        }else if(diference<0){
+            for(let i=0;i<(diference*-1);i++){
+                this.props.onRemove(tire)
+            }
+        }
+    }
+
 
     renderAdd(tire: BasketTires) {
         return <Button icon="add"
@@ -57,7 +82,7 @@ class BasketTable extends React.Component<Props>{
                 parent="basket"
                 options
                 className="basket-table"
-                headers={["Size", "Brand", "Season", "Price  ", "Amount", "Action+", "Action-"]}
+                headers={["Size", "Brand", "Season", "Price  ","Amount","Max", "Action+", "Action-"]}
                 loading={loading}
                 items={this.props.tires}
                 alt="Go buy something :)) "
@@ -68,6 +93,7 @@ class BasketTable extends React.Component<Props>{
                     this.renderSeason,
                     this.renderPrice,
                     this.renderAmount.bind(this),
+                    this.renderMax,
                     this.renderAdd.bind(this),
                     this.renderRemove.bind(this)]}
             >

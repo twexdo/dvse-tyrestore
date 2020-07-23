@@ -93,7 +93,9 @@ function mapDispatchToProps(dispatch: Dispatch): DispatchProps {
             selectVehicle: bindActionCreators(Actions.selectVehicle, dispatch),
             tiresLoaded: bindActionCreators(Actions.tiresLoaded, dispatch),
             addTireToBasket: bindActionCreators(Actions.addTireToBasket, dispatch),
-            removeTireFromBasket: bindActionCreators(Actions.removeTireFromBasket, dispatch)
+            removeTireFromBasket: bindActionCreators(Actions.removeTireFromBasket, dispatch),
+            emptyBasket: bindActionCreators(Actions.emptyBasket, dispatch),
+            editTyres:bindActionCreators(Actions.editTyres, dispatch)
         }
     }
 }

@@ -24,4 +24,6 @@ export type ComponentActionType=
     {type:"SELECT_VEHICLE",payload:Vehicle} |
     {type:"TIRES_LOADED",payload:[Tire[],OrderTypes ]} |
     {type:"ADD_TIRE_TO_BASKET",payload:[BasketTires,OrderTypes]}|
-    {type:"REMOVE_TIRE_FROM_BASKET",payload:BasketTires}
+    {type:"REMOVE_TIRE_FROM_BASKET",payload:BasketTires}|
+    {type:"EMPTY_BASKET"} |
+    {type:"EDIT_TYRES",payload:Tire[]}

@@ -22,33 +22,53 @@ type DispatchProps = {
 }
 class Basket extends React.Component<Props>{
     handleOnAdd(tire: BasketTires) {
-        
-        this.props.actions.addTireToBasket(tire,null)
-        
+
+        let index: number = -1
+        this.props.basketItems.forEach(x => {
+            console.log(x.id + " =?= " + tire.id)
+            if (x.id == tire.id) {
+                index = this.props.basketItems.indexOf(x)
+            }
+        })
+
+        const tiresInBasket = this.props.basketItems[index]
+        console.log("MMMMMMMM", index + "/" + this.props.basketItems)
+        if (tire.stock != 0) {
+
+            if (tiresInBasket != undefined && tiresInBasket.amount >= tire.stock) {
+                alert("You reached the limit of our stock")
+            } else {
+                this.props.actions.addTireToBasket(tire, "null")
+            }
+
+        } else {
+            alert("Sorry ,this item is unvalable now...")
+        }
+
     }
     handleOnRemove(tire: BasketTires) {
         //nu uita sa editezi si in web-Api
         this.props.actions.removeTireFromBasket(tire)
     }
-    buy(basket:BasketTires[]){
-        console.log("Ai cumparat ceva")
-        let list:Tire[]=[]
-        basket.forEach(itm=>{
-            for(let i=0;i<itm.amount;i++){
-                list.push(itm)
-            }
+    buy(basket: BasketTires[]) {
+
+        basket.forEach(x => {
+            x.stock = x.amount
         })
-        
-        Repository.buy(list)
-        
+        Repository.buy(basket).then(x => {
+
+            this.props.actions.emptyBasket()
+            this.props.actions.editTyres(x)
+        }
+        )
     }
 
-   
+
     render() {
         let total: number = 0
         let taxes = 12
         this.props.basketItems.forEach(item => {
-            total += item.price*item.amount
+            total += item.price * item.amount
         })
         return (
             <div className="basket-page">
@@ -57,9 +77,9 @@ class Basket extends React.Component<Props>{
                     onAdd={this.handleOnAdd.bind(this)}
                     onRemove={this.handleOnRemove.bind(this)}
                 > </BasketTable>
-                {this.props.basketItems.length>0 &&
+                {this.props.basketItems.length > 0 &&
 
-                    <Summary totalPrice={total} tax={taxes} onBTNClick={() =>{this.buy(this.props.basketItems) ;  console.log("BUY apasat")} } ></Summary>
+                    <Summary totalPrice={total} tax={taxes} onBTNClick={() => { this.buy(this.props.basketItems) }} ></Summary>
                 }
 
 
@@ -85,7 +105,9 @@ function mapDispatchToProps(dispatch: Dispatch): DispatchProps {
             selectVehicle: bindActionCreators(Actions.selectVehicle, dispatch),
             tiresLoaded: bindActionCreators(Actions.tiresLoaded, dispatch),
             addTireToBasket: bindActionCreators(Actions.addTireToBasket, dispatch),
-            removeTireFromBasket: bindActionCreators(Actions.removeTireFromBasket, dispatch)
+            removeTireFromBasket: bindActionCreators(Actions.removeTireFromBasket, dispatch),
+            emptyBasket: bindActionCreators(Actions.emptyBasket, dispatch),
+            editTyres: bindActionCreators(Actions.editTyres, dispatch)
         }
     }
 }

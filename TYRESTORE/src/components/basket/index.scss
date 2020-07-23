@@ -12,6 +12,16 @@
         .loader{
             align-self: center;
         }
+
+        
     }   
     @import "./basketSummary/";
+}
+input{
+        
+    width: 30px;
+    height: 20px;
+    text-align: center;
+    border: none;
+    background-color: white;
 }

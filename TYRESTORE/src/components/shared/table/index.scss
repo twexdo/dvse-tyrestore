@@ -1,6 +1,7 @@
 .table {
     display: flex;
     flex-direction: column;
+    position: relative;
     //border:1px solid black;
     margin:10px;
     box-shadow: $shadow;
@@ -8,7 +9,6 @@
         display: flex;
         text-transform: uppercase;
         background-color: darken($color: $color-default, $amount: 0);
-
         .text {
             text-align: center;
             padding: $spacing-s;

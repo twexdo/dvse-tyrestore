@@ -103,11 +103,12 @@ namespace TireStoreAPI.Controllers
         }
 
 
-        // ADDTOBASKET: api/Tyres/5
+        // ADDTOBASKET: api/Tyres/5   de updatat cu buy 
         [HttpPost, Route("AddTyreToBasket")]
         public async Task<ActionResult<IEnumerable<Tyres>>> AddTyreToBasket  ([FromBody] IEnumerable<Tyres> tyresList)
         {
 
+            Console.WriteLine("Things Updated");
             foreach (var tyre in tyresList) {
 
                 if (!UpdateStock(tyre))

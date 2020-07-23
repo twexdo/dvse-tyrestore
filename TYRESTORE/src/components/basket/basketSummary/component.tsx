@@ -9,7 +9,7 @@ type Props = {
 
 class Summary extends React.Component<Props>{
     render() {
-        const { totalPrice, tax,onBTNClick } = this.props
+        const { totalPrice, tax, onBTNClick } = this.props
 
         console.log(totalPrice)
         return (
@@ -26,7 +26,7 @@ class Summary extends React.Component<Props>{
                 <hr></hr>
                 <Text strong size="l">Total:</Text><br></br>
                 <Text strong size="l">{totalPrice + tax}  Lei</Text><br></br>
-                <Button onClick={onBTNClick} longButton skin="success">Proceed</Button>
+                <Button onClick={onBTNClick} longButton skin="success">Buy  </Button>
             </div>
 
         )

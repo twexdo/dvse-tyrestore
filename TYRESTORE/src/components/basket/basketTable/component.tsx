@@ -45,15 +45,19 @@ class BasketTable extends React.Component<Props>{
             onClick={() => this.props.onRemove(tire)}
         >Remove</Button>
     }
-
+    renderButton() {
+        return <Button></Button>
+    }
 
     render() {
 
         const { loading, history } = this.props
         return (
             <Table
+                parent="basket"
+                options
                 className="basket-table"
-                headers={["Brand", "Season", "Price  ", "Amount", "Action+", "Action-"]}// 
+                headers={["Size", "Brand", "Season", "Price  ", "Amount", "Action+", "Action-"]}
                 loading={loading}
                 items={this.props.tires}
                 alt="Go buy something :)) "

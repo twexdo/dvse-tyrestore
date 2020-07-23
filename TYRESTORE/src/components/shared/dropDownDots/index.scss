@@ -1,0 +1,35 @@
+.container{
+    position: absolute;
+    top:$spacing-s;
+    left:0;
+    align-self: center;
+    .dropdown-button{
+        display: flex;
+        flex-direction: column;
+        cursor : pointer;
+        div{
+            
+                width: 15px;
+                height: 30px;
+                background-image: radial-gradient(circle, black 2px, transparent 3px);
+                background-size: 100% 33.33%;
+            
+        }
+    }
+    .menu{
+        margin-left: $spacing-m;
+        .text{
+            display: flex;
+            cursor : pointer;
+            padding: $spacing-s;
+            background-color: grey;
+            //box-shadow: $shadow;
+            color: black;
+
+        }
+        .text:hover{
+            background-color: $color-primary;
+            color:black;
+        }
+    }
+}

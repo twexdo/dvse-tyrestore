@@ -20,7 +20,7 @@ class Header  extends React.Component<Props>{
 
         })
         if(x){return x}
-        else{return -20}
+        else{return 0}
     }
 
     render(){

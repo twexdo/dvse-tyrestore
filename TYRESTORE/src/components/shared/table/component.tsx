@@ -1,5 +1,6 @@
 import * as React from "react"
 import { Text, Loader, Button } from "../index"
+import DropDownDots from "../dropDownDots/component"
 
 type Props<T> = {
     className?: string
@@ -8,11 +9,13 @@ type Props<T> = {
     items: T[]
     loading?: boolean
     alt?:string
+    options?:boolean
+    parent?:string
 }
 
 class Table<T> extends React.Component<Props<T>> {
     render() {
-        const { headers, className, items, columns, loading,alt,children } = this.props
+        const { headers, className, items, columns, loading,alt,children,options,parent } = this.props
 
         if (loading) {
             return (
@@ -32,8 +35,10 @@ class Table<T> extends React.Component<Props<T>> {
 
         return (
             <div className={"table " + className ?? ""}>
+                
                 <div className="table__header">
                     {headers.map((header, idx) => <Text key={idx} size="l" strong skin="primary">{header}</Text>)}
+                    
                 </div>
                 <div className="table__content">
                     {items.map((item, idx) =>
@@ -46,6 +51,7 @@ class Table<T> extends React.Component<Props<T>> {
                         </div>
                     )}
                 </div>
+                {options && <DropDownDots parent={parent}  />}
             </div>
         )
     }

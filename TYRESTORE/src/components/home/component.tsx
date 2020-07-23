@@ -1,7 +1,7 @@
 import * as React from "react"
 import Text from "../shared/text/component"
 import {Repository} from "../../data/repositories"
-import { Tire, Vehicle, BasketTires } from "../../data/models"
+import { Tire, Vehicle, BasketTires, OrderTypes } from "../../data/models"
 import VehicleTable from "./vehicleTable/component"
 import { StoreType } from "../../buisness/model"
 import { connect, DispatchProp } from "react-redux"
@@ -26,7 +26,9 @@ type DispatchProps={
 }
 
 class Home  extends React.Component<Props>{
-
+    constructor(props){
+        super(props)
+    }
 
     componentDidMount(){
         this.props.actions.vehiclesLoading()
@@ -39,13 +41,13 @@ class Home  extends React.Component<Props>{
         this.props.actions.selectVehicle(vehicle)
         Repository.getTiresById(vehicle.id).then(
             tires=>{
-               this.props.actions.tiresLoaded(tires)
+               this.props.actions.tiresLoaded(tires,"null")
             }
         )
     }
 
     handleTiresToBasket(tire:BasketTires){
-        this.props.actions.addTireToBasket(tire)
+        this.props.actions.addTireToBasket(tire,"null")
     }
 
 
@@ -69,7 +71,6 @@ class Home  extends React.Component<Props>{
                 
                 }
                 
-                {/*{this.state.vehicles.map(v =><div>{v.name}</div>)}*/}
             </div>
 
         )
@@ -95,7 +96,7 @@ function  mapDispatchToProps(dispatch:Dispatch):DispatchProps{
             selectVehicle: bindActionCreators(Actions.selectVehicle,dispatch),
             tiresLoaded:bindActionCreators(Actions.tiresLoaded,dispatch),
             addTireToBasket:bindActionCreators(Actions.addTireToBasket,dispatch),
-            removeTireFromBasket:bindActionCreators(Actions.removeTireFromBasket,dispatch),
+            removeTireFromBasket:bindActionCreators(Actions.removeTireFromBasket,dispatch)
         }
     }   
 }

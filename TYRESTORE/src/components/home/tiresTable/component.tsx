@@ -35,10 +35,12 @@ class TiresTable extends React.Component<Props>{
 
         return (
             <Table
+            parent="tires"
                 className="tires-table"
                 headers={["Size", "Brand", "Season", "Price  ", "Actions"]}
                 loading={loading}
                 items={tires}
+                options
                 alt="Sorry, we have no tires for this type of car..."
                 columns={[this.renderSize, this.renderBrand, this.renderSeason, this.renderPrice, this.renderActions.bind(this)]}
             ></Table>

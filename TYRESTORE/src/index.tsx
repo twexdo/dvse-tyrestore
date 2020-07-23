@@ -2,7 +2,7 @@ import { createBrowserHistory } from "history"
 import * as React from "react"
 import * as ReactDom from 'react-dom'
 import "./styles.scss"
-import { Button, Text, Icon } from "./components/shared"
+import { Button, Text, Icon, DropDownDots } from "./components/shared"
 import Header from "./components/header/component"
 import { Router, Route, Switch } from "react-router"
 import Home from "./components/home/component"
@@ -34,6 +34,10 @@ function startApp() {
 
                 <Route path="/signin">
                     <Signin></Signin>
+                </Route>
+
+                <Route path="/test">
+                    <div>Noting</div>
                 </Route>
 
                 <Route path="/">

@@ -6,6 +6,7 @@ import BasketTable from "./basketTable/component"
 import { IActions, Actions } from "../../buisness/actions"
 import { Dispatch, bindActionCreators } from "redux"
 import Summary from "./basketSummary/component"
+import { Repository } from "../../data/repositories"
 
 type Props = DispatchProps & StoreProps & {
 
@@ -22,14 +23,27 @@ type DispatchProps = {
 class Basket extends React.Component<Props>{
     handleOnAdd(tire: BasketTires) {
         
-        this.props.actions.addTireToBasket(tire)
+        this.props.actions.addTireToBasket(tire,null)
         
     }
     handleOnRemove(tire: BasketTires) {
         //nu uita sa editezi si in web-Api
         this.props.actions.removeTireFromBasket(tire)
     }
+    buy(basket:BasketTires[]){
+        console.log("Ai cumparat ceva")
+        let list:Tire[]=[]
+        basket.forEach(itm=>{
+            for(let i=0;i<itm.amount;i++){
+                list.push(itm)
+            }
+        })
+        
+        Repository.buy(list)
+        
+    }
 
+   
     render() {
         let total: number = 0
         let taxes = 12
@@ -45,7 +59,7 @@ class Basket extends React.Component<Props>{
                 > </BasketTable>
                 {this.props.basketItems.length>0 &&
 
-                    <Summary totalPrice={total} tax={taxes} onBTNClick={() =>{} } ></Summary>
+                    <Summary totalPrice={total} tax={taxes} onBTNClick={() =>{this.buy(this.props.basketItems) ;  console.log("BUY apasat")} } ></Summary>
                 }
 
 
@@ -71,7 +85,7 @@ function mapDispatchToProps(dispatch: Dispatch): DispatchProps {
             selectVehicle: bindActionCreators(Actions.selectVehicle, dispatch),
             tiresLoaded: bindActionCreators(Actions.tiresLoaded, dispatch),
             addTireToBasket: bindActionCreators(Actions.addTireToBasket, dispatch),
-            removeTireFromBasket: bindActionCreators(Actions.removeTireFromBasket, dispatch),
+            removeTireFromBasket: bindActionCreators(Actions.removeTireFromBasket, dispatch)
         }
     }
 }

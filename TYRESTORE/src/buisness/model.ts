@@ -1,4 +1,4 @@
-import { Vehicle, Tire, BasketTires } from "../data/models";
+import { Vehicle, Tire, BasketTires, OrderTypes } from "../data/models";
 
 export type StoreType={
     vehicles:{
@@ -22,6 +22,6 @@ export type ComponentActionType=
     {type:"VEHICLE_LOADING"} |
     {type:"VEHICLE_LOADED",payload:Vehicle[] } |
     {type:"SELECT_VEHICLE",payload:Vehicle} |
-    {type:"TIRES_LOADED",payload:Tire[]} |
-    {type:"ADD_TIRE_TO_BASKET",payload:BasketTires}|
+    {type:"TIRES_LOADED",payload:[Tire[],OrderTypes ]} |
+    {type:"ADD_TIRE_TO_BASKET",payload:[BasketTires,OrderTypes]}|
     {type:"REMOVE_TIRE_FROM_BASKET",payload:BasketTires}

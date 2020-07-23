@@ -53,50 +53,62 @@ export function reducer(state = DEFAULT_STATE, action: ComponentActionType): Sto
             }
         }
         case "TIRES_LOADED": {
+            const order = action.payload[1]
+            if (order == "cheap") action.payload[0].sort((a, b) => a.price - b.price)
+            else if (order == "expensive") action.payload[0].sort((a, b) => b.price - a.price)
             return {
                 ...state,
                 tires: {
                     ...state.tires,
                     loading: false,
-                    items: action.payload
+                    items: [...action.payload[0]]
                 }
             }
         }
         case "ADD_TIRE_TO_BASKET": {
-            let a:number
-            let st=[]
-            const checker=existInList(state.basket.items,action.payload)
-           console.log("checker: "+checker)
-            if(checker>=0){   //tre sa scimbi din basket tire in tire  
-                
-                if(action.payload.amount==undefined)action.payload.amount=1
-                a=state.basket.items[checker].amount+1
-                console.log("Un item se repeta :"+a+" si payload:"+action.payload.amount)
-                const  index=existInList(state.basket.items,action.payload)
+            let a: number
+            let st = []
+            if (action.payload[0]) {
+                const checker = existInList(state.basket.items, action.payload[0])
+                console.log("checker: " + checker)
+                if (checker >= 0) {   //tre sa scimbi din basket tire in tire  
+
+                    if (action.payload[0].amount == undefined) action.payload[0].amount = 1
+                    a = state.basket.items[checker].amount + 1
+                    console.log("Un item se repeta :" + a + " si payload:" + action.payload[0].amount)
+                    const index = existInList(state.basket.items, action.payload[0])
+                    let aux = state.basket.items
+                    aux[index].amount = a
+                    st = [...aux]
+
+                }
+                else {
+                    action.payload[0].amount = 1;
+                    st = [...state.basket.items, { ...action.payload[0] }]
+                    console.log("LOG DIN ELSE: " + st)
+                }
+            } else {
                 let aux=state.basket.items
-                aux[index].amount=a
+                const order = action.payload[1]
+                if (order == "cheap") aux.sort((a, b) => a.price - b.price)
+                else if (order == "expensive") aux.sort((a, b) => b.price - a.price)
                 st=[...aux]
-              
             }
-            else {
-                action.payload.amount=1;
-                st=[...state.basket.items, {...action.payload}] 
-               console.log("LOG DIN ELSE: "+st)
-            }
+            
             return {
                 ...state,
                 basket: {
                     items: st
                 }
             }
-           
+
 
         }
         case "REMOVE_TIRE_FROM_BASKET": {
             return {
                 ...state,
                 basket: {
-                    items:del(action.payload,state.basket.items)
+                    items: del(action.payload, state.basket.items)
                 }
             }
         }
@@ -105,33 +117,35 @@ export function reducer(state = DEFAULT_STATE, action: ComponentActionType): Sto
     }
     return state
 }
-function del(itemX: BasketTires, state:BasketTires[]) {
+function del(itemX: BasketTires, state: BasketTires[]) {
     const index = state.indexOf(itemX)
-    if(state[index].amount==1)
-    state.splice(index, 1)
+    if (state[index].amount == 1)
+        state.splice(index, 1)
     else
-    state[index].amount-=1
+        state[index].amount -= 1
     return [...state]
 
 }
-function existInList(list:BasketTires[],item:BasketTires):number{
+function existInList(list: BasketTires[], item: BasketTires): number {
     //compar sa vad daca itemul dat exista in lista data
-    let index=-1
-    let gasit=false
-    const max=list.length ?? 0
-    for(let i=0;i<max;i++){
-        const x=list[i]
-      
+    let index = -1
+    let gasit = false
+    const max = list.length ?? 0
+    for (let i = 0; i < max; i++) {
+        const x = list[i]
+
         index++
-        if(x.id==item.id && 
-            x.price==item.price && 
-            x.season==item.season && 
-            x.size==item.size && 
-            x.brand==item.brand
-            ){ console.log("Break")
-                gasit=true
-                break }
+        if (x.id == item.id &&
+            x.price == item.price &&
+            x.season == item.season &&
+            x.size == item.size &&
+            x.brand == item.brand
+        ) {
+            console.log("Break")
+            gasit = true
+            break
+        }
     }
-    if(gasit){ return index}
+    if (gasit) { return index }
     return -1
 }

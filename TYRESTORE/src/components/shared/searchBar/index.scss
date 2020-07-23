@@ -1,11 +1,17 @@
-.bar{
-    align-self: center;
-    width: 100%;
-    max-width: 400px;
+.search-container{
+    display: flex;
+    flex-direction: row;
     background-color: white;
     border: 1 solid black;
     box-shadow: $shadow;
-    color:black;
-    margin:$spacing-s;
-    padding:$spacing-s;
+    color: black;
+    padding: $spacing-s;
+    border-bottom:1px solid black;
+    .bar {
+       flex:1;
+       border:none;
+       outline: none;
+     
+    }
+    
 }

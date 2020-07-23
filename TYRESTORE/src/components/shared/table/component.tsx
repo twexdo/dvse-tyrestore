@@ -1,6 +1,7 @@
 import * as React from "react"
 import { Text, Loader, Button } from "../index"
 import DropDownDots from "../dropDownDots/component"
+import SearchBar from "../searchBar/component"
 
 type Props<T> = {
     className?: string
@@ -11,9 +12,15 @@ type Props<T> = {
     alt?:string
     options?:boolean
     parent?:string
+    fun?(key:string):void
 }
 
 class Table<T> extends React.Component<Props<T>> {
+    useFunction(key:string){
+            this.props.fun(key)
+           // alert("WE REACHED TABLE :"+key)
+    }
+
     render() {
         const { headers, className, items, columns, loading,alt,children,options,parent } = this.props
 
@@ -32,10 +39,10 @@ class Table<T> extends React.Component<Props<T>> {
                 </div>
             )
         }
-
+       
         return (
             <div className={"table " + className ?? ""}>
-                
+               {!options && <SearchBar fun={this.useFunction.bind(this)} list={items}/>}
                 <div className="table__header">
                     {headers.map((header, idx) => <Text key={idx} size="l" strong skin="primary">{header}</Text>)}
                     

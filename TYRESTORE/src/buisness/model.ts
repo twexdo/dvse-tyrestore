@@ -4,6 +4,7 @@ export type StoreType={
     vehicles:{
         loading?:boolean
         items:Vehicle[]
+        originalItems:Vehicle[]
     }
     tires:{
         loading?:boolean
@@ -26,4 +27,5 @@ export type ComponentActionType=
     {type:"ADD_TIRE_TO_BASKET",payload:[BasketTires,OrderTypes]}|
     {type:"REMOVE_TIRE_FROM_BASKET",payload:BasketTires}|
     {type:"EMPTY_BASKET"} |
-    {type:"EDIT_TYRES",payload:Tire[]}
+    {type:"EDIT_TYRES",payload:Tire[]}|
+    {type:"SEARCH",payload:string}

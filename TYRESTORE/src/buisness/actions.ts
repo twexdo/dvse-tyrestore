@@ -35,6 +35,10 @@ function editTyres(tires:BasketTires[]|Tire[]):ComponentActionType{
     return {type:"EDIT_TYRES",payload:tires}
 
 }
+function search(key:string):ComponentActionType{
+    return {type:"SEARCH",payload:key}
+
+}
 
 export const Actions={
     vehiclesLoading,
@@ -44,6 +48,7 @@ export const Actions={
     addTireToBasket,
     removeTireFromBasket,
     emptyBasket,
-    editTyres
+    editTyres,
+    search
 }
 export type IActions=typeof Actions

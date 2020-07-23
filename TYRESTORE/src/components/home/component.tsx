@@ -48,35 +48,39 @@ class Home extends React.Component<Props>{
     }
 
     handleTiresToBasket(tire: BasketTires) {
-        let  index :number =-1
-        this.props.basketItems.forEach(x=>{
-            console.log(x.id+" =?= "+tire.id)
-            if(x.id==tire.id){
-                index=this.props.basketItems.indexOf(x)
+        let index: number = -1
+        this.props.basketItems.forEach(x => {
+            console.log(x.id + " =?= " + tire.id)
+            if (x.id == tire.id) {
+                index = this.props.basketItems.indexOf(x)
             }
         })
 
-        const tiresInBasket=this.props.basketItems[index]
-        console.log("MMMMMMMM", index+"/"+this.props.basketItems)
+        const tiresInBasket = this.props.basketItems[index]
         if (tire.stock != 0) {
-            
-                if (tiresInBasket != undefined && tiresInBasket.amount >= tire.stock) {
-                    alert("You reached the limit of our stock")
-                } else {
-                    this.props.actions.addTireToBasket(tire, "null")
-                }
-            
+
+            if (tiresInBasket != undefined && tiresInBasket.amount >= tire.stock) {
+                alert("You reached the limit of our stock")
+            } else {
+                this.props.actions.addTireToBasket(tire, "null")
+            }
+
         } else {
             alert("Sorry ,this item is unvalable now...")
         }
         // Repository.buy(this.props.tires)
     }
+    useFunction(key: string) {
+       
+        this.props.actions.search(key)
 
+    }
 
     render() {
         return (
             <div className="home">
                 <VehicleTable
+                    fun={this.useFunction.bind(this)}
                     onSelectVehicle={this.handleVehicleSelect.bind(this)}
                     vehicles={this.props.vehiclesItems}
                     selectedVehicle={this.props.selectedVehicle}
@@ -121,7 +125,8 @@ function mapDispatchToProps(dispatch: Dispatch): DispatchProps {
             addTireToBasket: bindActionCreators(Actions.addTireToBasket, dispatch),
             removeTireFromBasket: bindActionCreators(Actions.removeTireFromBasket, dispatch),
             emptyBasket: bindActionCreators(Actions.emptyBasket, dispatch),
-            editTyres: bindActionCreators(Actions.editTyres, dispatch)
+            editTyres: bindActionCreators(Actions.editTyres, dispatch),
+            search: bindActionCreators(Actions.search, dispatch)
         }
     }
 }

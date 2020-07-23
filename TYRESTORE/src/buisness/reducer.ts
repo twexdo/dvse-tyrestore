@@ -1,6 +1,6 @@
 import { StoreType, ComponentActionType } from "./model";
 import { Action } from "redux";
-import { Tire, BasketTires } from "../data/models";
+import { Tire, BasketTires, Vehicle } from "../data/models";
 
 const DEFAULT_STATE: StoreType = {
     basket: {
@@ -10,7 +10,8 @@ const DEFAULT_STATE: StoreType = {
         items: []
     },
     vehicles: {
-        items: []
+        items: [],
+        originalItems:[]
     }
 
 }
@@ -36,7 +37,8 @@ export function reducer(state = DEFAULT_STATE, action: ComponentActionType): Sto
                 vehicles: {
                     ...state.vehicles,
                     loading: false,
-                    items: action.payload
+                    items: action.payload,
+                    originalItems: action.payload
                 }
             }
         }
@@ -89,13 +91,13 @@ export function reducer(state = DEFAULT_STATE, action: ComponentActionType): Sto
                     console.log("LOG DIN ELSE: " + st)
                 }
             } else {
-                let aux=state.basket.items
+                let aux = state.basket.items
                 const order = action.payload[1]
                 if (order == "cheap") aux.sort((a, b) => a.price - b.price)
                 else if (order == "expensive") aux.sort((a, b) => b.price - a.price)
-                st=[...aux]
+                st = [...aux]
             }
-            
+
             return {
                 ...state,
                 basket: {
@@ -114,21 +116,21 @@ export function reducer(state = DEFAULT_STATE, action: ComponentActionType): Sto
             }
         }
         case "EMPTY_BASKET": {
-            let st:BasketTires[]=[]
+            let st: BasketTires[] = []
             return {
                 ...state,
                 basket: {
                     items: [...st]
                 }
             }
-        }case "EDIT_TYRES": {
-                let st=state.tires.items
-                action.payload.forEach(y=>{
-                    let index=existInList(st,y)
-                    if(index!=-1){
-                        st[index]=changeStock(st[index],y)
-                    }
-                })
+        } case "EDIT_TYRES": {
+            let st = state.tires.items
+            action.payload.forEach(y => {
+                let index = existInList(st, y)
+                if (index != -1) {
+                    st[index] = changeStock(st[index], y)
+                }
+            })
             return {
                 ...state,
                 tires: {
@@ -138,14 +140,41 @@ export function reducer(state = DEFAULT_STATE, action: ComponentActionType): Sto
                 }
             }
         }
+        case "SEARCH": {
+            let newItems: Vehicle[] = []
+            if (action.payload != "") {
+                const key = action.payload.toUpperCase()
+                state.vehicles.originalItems.forEach(element => {
+                    if (element.name.toUpperCase().includes(key) || element.manufacturerName.toUpperCase().includes(key)) {
+                        newItems.push(element)
+                    }
+                })
+                if(newItems.length<=0){
+                    alert("Search failed , key not found!")
+                    newItems=state.vehicles.originalItems
+                }
+            }else{
+                newItems=state.vehicles.originalItems
+            }
+            return {
+                ...state,
+                vehicles: {
+                    ...state.vehicles,
+                    loading: false,
+                    items: [...newItems],
+                    originalItems:[...state.vehicles.originalItems]
+                   
+                }
+            }
+        }
 
 
     }
     return state
 }
 
-function changeStock(a:Tire,b:Tire){
-    a.stock=b.stock
+function changeStock(a: Tire, b: Tire) {
+    a.stock = b.stock
     return a
 }
 function del(itemX: BasketTires, state: BasketTires[]) {
@@ -157,7 +186,7 @@ function del(itemX: BasketTires, state: BasketTires[]) {
     return [...state]
 
 }
-function existInList(list: BasketTires[]|Tire[], item: BasketTires|Tire): number {
+function existInList(list: BasketTires[] | Tire[], item: BasketTires | Tire): number {
     //compar sa vad daca itemul dat exista in lista data
     let index = -1
     let gasit = false

@@ -38,7 +38,7 @@ function startApp() {
                 </Route>
 
                 <Route path="/test">
-                    <SearchBar/>
+                  <div>Test Page</div>
                 </Route>
 
                 <Route path="/">

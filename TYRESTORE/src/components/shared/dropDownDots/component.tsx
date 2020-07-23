@@ -95,7 +95,8 @@ function mapDispatchToProps(dispatch: Dispatch): DispatchProps {
             addTireToBasket: bindActionCreators(Actions.addTireToBasket, dispatch),
             removeTireFromBasket: bindActionCreators(Actions.removeTireFromBasket, dispatch),
             emptyBasket: bindActionCreators(Actions.emptyBasket, dispatch),
-            editTyres:bindActionCreators(Actions.editTyres, dispatch)
+            editTyres:bindActionCreators(Actions.editTyres, dispatch),
+            search: bindActionCreators(Actions.search, dispatch)
         }
     }
 }

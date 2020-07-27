@@ -57,6 +57,7 @@ class DropDownDots extends React.Component<Props, State>{
         if (this.props.parent == "tires") this.props.actions.tiresLoaded(this.props.tires, "expensive")
         else if (this.props.parent == "basket") this.props.actions.addTireToBasket(null, "expensive")
     }
+    
     render() {
         return (
             <div className="container">

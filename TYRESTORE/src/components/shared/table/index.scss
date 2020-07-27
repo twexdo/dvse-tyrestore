@@ -6,6 +6,7 @@
     //border:1px solid black;
     margin:10px;
     box-shadow: $shadow;
+    height: fit-content;
     &__header {
         display: flex;
         text-transform: uppercase;
@@ -33,7 +34,7 @@
     &__content {
         flex: 1;
         display: flex;
-        max-height: 30em;
+        max-height: 27em;
         overflow: auto;
         flex-direction: column;
 
@@ -45,7 +46,7 @@
         .table__item {
             display: flex;
             background-color: lighten($color: $color-default, $amount: 30);
-
+            align-items:center;
             &:nth-of-type(even) {
                 background-color: $color-default;
             }
